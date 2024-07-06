@@ -1,4 +1,3 @@
-import 'package:ecommerce/auth/views/homeScreen.dart';
 import 'package:ecommerce/auth/views/signInScreen.dart';
 import 'package:ecommerce/auth/views/signUpScreen.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +18,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      debugShowCheckedModeBanner: false,
       routes: {
-        "/": (context) => const HomeScreen(),
-        "/signInScreen": (context) => const SignInScreen(),
+        "/": (context) => const SignInScreen(),
         "/signUpScreen": (context) => const SignUpScreen(),
       }
     );
