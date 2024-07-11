@@ -1,5 +1,6 @@
-import 'package:ecommerce/auth/views/signInScreen.dart';
-import 'package:ecommerce/auth/views/signUpScreen.dart';
+import 'package:ecommerce/screens/auth/views/signInScreen.dart';
+import 'package:ecommerce/screens/auth/views/signUpScreen.dart';
+import 'package:ecommerce/screens/home/views/homeScreen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         routes: {
           "/": (context) => const SignInScreen(),
           "/signUpScreen": (context) => const SignUpScreen(),
+          "/homeScreen": (context) => const HomeScreen()
         });
   }
 }

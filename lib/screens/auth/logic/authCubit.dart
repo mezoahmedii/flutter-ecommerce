@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:ecommerce/auth/logic/authStates.dart';
+import 'package:ecommerce/screens/auth/logic/authStates.dart';
 import 'package:ecommerce/core/utils/constants/apiConstants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,7 +17,7 @@ class AuthCubit extends Cubit<AuthStates> {
   TextEditingController passwordController = TextEditingController();
   String status = "";
 
-  Future<void> signIn() async {
+  Future<void> signIn(context) async {
     emit(AuthLoading());
 
     var url = Uri.parse("${baseUrl}login");
@@ -37,6 +37,7 @@ class AuthCubit extends Cubit<AuthStates> {
         debugPrint("Successfully logged in:");
         debugPrint(result.toString());
         status = "Successfully logged in: ${result["message"]}";
+        Navigator.pushNamed(context, "/homeScreen");
         emit(AuthSuccess());
       } else if (result["status"] == false) {
         debugPrint("Can't log in:");
@@ -56,7 +57,7 @@ class AuthCubit extends Cubit<AuthStates> {
       emit(AuthError());
     }
   }
-  Future<void> signUp() async {
+  Future<void> signUp(context) async {
     emit(AuthLoading());
 
     var url = Uri.parse("${baseUrl}register");
@@ -76,24 +77,17 @@ class AuthCubit extends Cubit<AuthStates> {
           await http.post(url, body: json.encode(data), headers: headers);
       var result = json.decode(response.body);
       if (response.statusCode == 200 && result["status"] == true) {
-        debugPrint("Successfully logged in:");
-        debugPrint(result.toString());
-        status = "Successfully logged in: ${result["message"]}";
+        status = "Successfully signed up: ${result["message"]}";
         emit(AuthSuccess());
+        Navigator.pushNamed(context, "/signInScreen");
       } else if (result["status"] == false) {
-        debugPrint("Can't log in:");
-        debugPrint(result.toString());
-        status = "Can't log in: ${result["message"]}";
+        status = "Can't sign up: ${result["message"]}";
         emit(AuthError());
       } else {
-        debugPrint("Connection error:");
-        debugPrint(response.statusCode.toString());
         status = "Connection error: ${response.statusCode}";
         emit(AuthError());
       }
     } catch (e) {
-      debugPrint("Error:");
-      debugPrint(e.toString());
       status = "Error: $e";
       emit(AuthError());
     }
