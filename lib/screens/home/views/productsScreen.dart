@@ -21,7 +21,7 @@ class ProductsScreen extends StatelessWidget {
             return (state is HomeLoading)
                 ? const CircularProgressIndicator()
                 : ProductsList(products: cubit.products);
-          })),
+          }))
         ),
       ),
       appBar: AppBar(
