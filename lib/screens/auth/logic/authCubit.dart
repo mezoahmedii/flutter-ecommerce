@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:ecommerce/screens/auth/logic/authStates.dart';
 import 'package:ecommerce/core/utils/constants/apiConstants.dart';
+import 'package:ecommerce/screens/auth/logic/authStates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
@@ -27,36 +27,29 @@ class AuthCubit extends Cubit<AuthStates> {
     };
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "lang": "ar"
+      "lang": lang
     };
     try {
       final response =
           await http.post(url, body: json.encode(data), headers: headers);
       var result = json.decode(response.body);
       if (response.statusCode == 200 && result["status"] == true) {
-        debugPrint("Successfully logged in:");
-        debugPrint(result.toString());
         status = "Successfully logged in: ${result["message"]}";
         Navigator.pushNamed(context, "/homeScreen");
         emit(AuthSuccess());
       } else if (result["status"] == false) {
-        debugPrint("Can't log in:");
-        debugPrint(result.toString());
         status = "Can't log in: ${result["message"]}";
         emit(AuthError());
       } else {
-        debugPrint("Connection error:");
-        debugPrint(response.statusCode.toString());
         status = "Connection error: ${response.statusCode}";
         emit(AuthError());
       }
     } catch (e) {
-      debugPrint("Error:");
-      debugPrint(e.toString());
       status = "Error: $e";
       emit(AuthError());
     }
   }
+
   Future<void> signUp(context) async {
     emit(AuthLoading());
 

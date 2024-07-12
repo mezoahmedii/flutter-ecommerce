@@ -1,8 +1,8 @@
-import 'package:ecommerce/screens/auth/logic/authCubit.dart';
-import 'package:ecommerce/screens/auth/logic/authStates.dart';
 import 'package:ecommerce/core/widgets/customButton.dart';
 import 'package:ecommerce/core/widgets/customTextField.dart';
 import 'package:ecommerce/core/widgets/gradientBackground.dart';
+import 'package:ecommerce/screens/auth/logic/authCubit.dart';
+import 'package:ecommerce/screens/auth/logic/authStates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,7 +41,9 @@ class SignInScreen extends StatelessWidget {
                                   cubit.signIn(context);
                                 },
                                 text: "Sign In"),
-                        (state is AuthLoading) ? const Text("") : Text(cubit.status),
+                        (state is AuthLoading)
+                            ? const Text("")
+                            : Text(cubit.status),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
