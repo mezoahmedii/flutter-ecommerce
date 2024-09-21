@@ -16,7 +16,16 @@ class HomeBanners extends StatelessWidget {
           builder: (BuildContext context) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
-              child: (i.image != null) ? Image.network(i.image!, fit: BoxFit.cover,) : const Placeholder(),
+              child: (i.image != null) ? Image.network(
+                i.image!,
+                fit: BoxFit.cover,
+                errorBuilder: (context, object, stackTrace) {
+                  return Container(
+                    height: 200,
+                    color: Colors.grey.withOpacity(0.5),
+                  );
+                },
+              ) : const Placeholder(),
             );
           },
         );
