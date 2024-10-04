@@ -13,7 +13,7 @@ class ProductsList extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HomeCubit(),
-      child: BlocBuilder<HomeCubit,HomeStates>(
+      child: BlocBuilder<HomeCubit, HomeStates>(
         builder: (context, state) => ListView.builder(
           itemBuilder: (context, i) {
             return Padding(
@@ -29,6 +29,12 @@ class ProductsList extends StatelessWidget {
                     Image.network(
                       products[i].image!,
                       width: 100,
+                      errorBuilder: (context, object, stackTrace) {
+                        return Container(
+                          height: 200,
+                          color: Color(0xFFe06e8f),
+                        );
+                      },
                     ),
                     const SizedBox(
                       width: 10,
@@ -44,7 +50,8 @@ class ProductsList extends StatelessWidget {
                                   children: [
                                     Text("\$${products[i].oldPrice!}  ",
                                         style: const TextStyle(
-                                            decoration: TextDecoration.lineThrough,
+                                            decoration:
+                                                TextDecoration.lineThrough,
                                             color: Colors.black54)),
                                     Text("\$${products[i].price!}")
                                   ],
@@ -62,7 +69,16 @@ class ProductsList extends StatelessWidget {
                               const SizedBox(
                                 width: 8,
                               ),
-                              (state is HomeLoading) ?  const CircularProgressIndicator() : CustomButton(onPressed: () {HomeCubit.get(context).addFavorite(context, products[i].id!);}, text: (products[i].inFavorites! == true) ? "Unfavorite" : "Favorite"),
+                              (state is HomeLoading)
+                                  ? const CircularProgressIndicator()
+                                  : CustomButton(
+                                      onPressed: () {
+                                        HomeCubit.get(context).addFavorite(
+                                            context, products[i].id!);
+                                      },
+                                      text: (products[i].inFavorites! == true)
+                                          ? "Unfavorite"
+                                          : "Favorite"),
                             ],
                           ),
                           // (state is HomeLoading) ? const CircularProgressIndicator() : CustomButton(onPressed: () {HomeCubit.get(context).addFavorite(context, products[i].id!);}, text: (products[i].inCart! == true) ? "Remove from cart" : "Add to cart"),

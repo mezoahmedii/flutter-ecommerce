@@ -22,46 +22,59 @@ class ProductInfoScreen extends StatelessWidget {
               return (state is HomeLoading)
                   ? const CircularProgressIndicator()
                   : Padding(
-                    padding: const EdgeInsets.all(32),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Image.network(cubit.currentProduct.image!),
-                        Text(cubit.currentProduct.name!,
-                            style: const TextStyle(
-                                fontSize: 23, fontWeight: FontWeight.bold)),
-                        Text(cubit.currentProduct.description!),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              CustomButton(onPressed: () {cubit.addFavorite(context, cubit.currentProduct.id);}, text: (cubit.currentProduct.inFavorites == true) ? "Unfavorite" : "Favorite"),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              // CustomButton(onPressed: () {cubit.addFavorite(context, cubit.currentProduct.id);}, text: (cubit.currentProduct.inCart == true) ? "Remove from cart" : "Add to cart"),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                              (cubit.currentProduct.discount != 0)
-                                  ? Row(
-                                      children: [
-                                        Text(
-                                            "\$${cubit.currentProduct.oldPrice!}  ",
-                                            style: const TextStyle(
-                                                decoration: TextDecoration
-                                                    .lineThrough,
-                                                color: Colors.black54)),
-                                        Text(
-                                            "\$${cubit.currentProduct.price!}")
-                                      ],
-                                    )
-                                  : Text(
-                                      "\$${cubit.currentProduct.price!}"),
-                            ])
-                      ],
-                    ),
-                  );
+                      padding: const EdgeInsets.all(32),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Image.network(cubit.currentProduct.image!,
+                              errorBuilder: (context, object, stackTrace) {
+                            return Container(
+                              height: 200,
+                              color: Color(0xFFe06e8f),
+                            );
+                          }),
+                          Text(cubit.currentProduct.name!,
+                              style: const TextStyle(
+                                  fontSize: 23, fontWeight: FontWeight.bold)),
+                          Text(cubit.currentProduct.description!),
+                          Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CustomButton(
+                                    onPressed: () {
+                                      cubit.addFavorite(
+                                          context, cubit.currentProduct.id);
+                                    },
+                                    text: (cubit.currentProduct.inFavorites ==
+                                            true)
+                                        ? "Unfavorite"
+                                        : "Favorite"),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                // CustomButton(onPressed: () {cubit.addFavorite(context, cubit.currentProduct.id);}, text: (cubit.currentProduct.inCart == true) ? "Remove from cart" : "Add to cart"),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                (cubit.currentProduct.discount != 0)
+                                    ? Row(
+                                        children: [
+                                          Text(
+                                              "\$${cubit.currentProduct.oldPrice!}  ",
+                                              style: const TextStyle(
+                                                  decoration: TextDecoration
+                                                      .lineThrough,
+                                                  color: Colors.black54)),
+                                          Text(
+                                              "\$${cubit.currentProduct.price!}")
+                                        ],
+                                      )
+                                    : Text("\$${cubit.currentProduct.price!}"),
+                              ])
+                        ],
+                      ),
+                    );
             }),
           )),
         ),

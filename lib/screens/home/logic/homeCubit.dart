@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:ecommerce/core/utils/cache/sharedPrefs.dart';
 import 'package:ecommerce/core/utils/constants/apiConstants.dart';
-import 'package:ecommerce/core/utils/constants/token.dart';
 import 'package:ecommerce/screens/home/data/bannerModel.dart';
 import 'package:ecommerce/screens/home/data/categoryModel.dart';
 import 'package:ecommerce/screens/home/data/productModel.dart';
@@ -27,7 +27,7 @@ class HomeCubit extends Cubit<HomeStates> {
     var url = Uri.parse("${baseUrl}categories");
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": token,
+      "Authorization": SharedPrefs.prefs.getString("token")!,
       "lang": lang
     };
     try {
@@ -62,7 +62,7 @@ class HomeCubit extends Cubit<HomeStates> {
     var url = Uri.parse("${baseUrl}products?category_id=$id");
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": token,
+      "Authorization": SharedPrefs.prefs.getString("token")!,
       "lang": lang
     };
     try {
@@ -97,7 +97,7 @@ class HomeCubit extends Cubit<HomeStates> {
     var url = Uri.parse("${baseUrl}products/$id");
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": token,
+      "Authorization": SharedPrefs.prefs.getString("token")!,
       "lang": lang
     };
     try {
@@ -130,7 +130,7 @@ class HomeCubit extends Cubit<HomeStates> {
     var url = Uri.parse("${baseUrl}banners");
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": token,
+      "Authorization": SharedPrefs.prefs.getString("token")!,
       "lang": lang
     };
     try {
@@ -163,12 +163,10 @@ class HomeCubit extends Cubit<HomeStates> {
     emit(HomeLoading());
 
     var url = Uri.parse("${baseUrl}favorites");
-    Map<String, dynamic> data = {
-      "product_id": id
-    };
+    Map<String, dynamic> data = {"product_id": id};
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": token,
+      "Authorization": SharedPrefs.prefs.getString("token")!,
       "lang": lang
     };
     try {
@@ -198,7 +196,7 @@ class HomeCubit extends Cubit<HomeStates> {
     var url = Uri.parse("${baseUrl}favorites");
     Map<String, String> headers = {
       "Content-Type": "application/json",
-      "Authorization": token,
+      "Authorization": SharedPrefs.prefs.getString("token")!,
       "lang": lang
     };
     try {

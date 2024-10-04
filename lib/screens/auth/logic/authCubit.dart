@@ -1,7 +1,7 @@
 import 'dart:convert';
 
+import 'package:ecommerce/core/utils/cache/sharedPrefs.dart';
 import 'package:ecommerce/core/utils/constants/apiConstants.dart';
-import 'package:ecommerce/core/utils/constants/token.dart';
 import 'package:ecommerce/screens/auth/logic/authStates.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -36,9 +36,9 @@ class AuthCubit extends Cubit<AuthStates> {
       var result = json.decode(response.body);
       if (response.statusCode == 200 && result["status"] == true) {
         status = "Successfully logged in: ${result["message"]}";
-        token = result["data"]["token"];
-        debugPrint(token);
-        Navigator.pushNamed(context, "/homeScreen");
+        debugPrint(result["data"]["token"]);
+        SharedPrefs.prefs.setString("token", result["data"]["token"]);
+        Navigator.popAndPushNamed(context, "/homeScreen");
         emit(AuthSuccess());
       } else if (result["status"] == false) {
         status = "Can't log in: ${result["message"]}";

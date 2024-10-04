@@ -20,16 +20,23 @@ class FavoritesGrid extends StatelessWidget {
         shrinkWrap: true,
         itemBuilder: (context, i) {
           return InkWell(
-            onTap: () {Navigator.pushNamed(context, "/productInfoScreen", arguments: favorites[i].id!);},
+            onTap: () {
+              Navigator.pushNamed(context, "/productInfoScreen",
+                  arguments: favorites[i].id!);
+            },
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20)
-              ),
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
               padding: const EdgeInsets.all(12),
               child: Column(
                 children: [
-                  Image.network(favorites[i].image!, height: 120, width: 150),
+                  Image.network(favorites[i].image!, height: 120, width: 150,
+                      errorBuilder: (context, object, stackTrace) {
+                    return Container(
+                      height: 200,
+                      color: Color(0xFFe06e8f),
+                    );
+                  }),
                   Expanded(child: Text(favorites[i].name!))
                 ],
               ),
