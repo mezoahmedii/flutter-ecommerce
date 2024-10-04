@@ -53,7 +53,14 @@ class ProductInfoScreen extends StatelessWidget {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                // CustomButton(onPressed: () {cubit.addFavorite(context, cubit.currentProduct.id);}, text: (cubit.currentProduct.inCart == true) ? "Remove from cart" : "Add to cart"),
+                                CustomButton(
+                                    onPressed: () {
+                                      cubit.addToCart(
+                                          context, cubit.currentProduct.id);
+                                    },
+                                    text: (cubit.currentProduct.inCart == true)
+                                        ? "Remove from cart"
+                                        : "Add to cart"),
                                 const SizedBox(
                                   width: 10,
                                 ),

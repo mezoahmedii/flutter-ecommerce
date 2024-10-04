@@ -57,31 +57,40 @@ class ProductsList extends StatelessWidget {
                                   ],
                                 )
                               : Text("\$${products[i].price!}"),
-                          Row(
-                            children: [
-                              CustomButton(
+                          (state is HomeLoading)
+                              ? const CircularProgressIndicator()
+                              : Row(
+                                  children: [
+                                    CustomButton(
+                                        onPressed: () {
+                                          Navigator.pushNamed(
+                                              context, "/productInfoScreen",
+                                              arguments: products[i].id);
+                                        },
+                                        text: "More Info"),
+                                    const SizedBox(
+                                      width: 8,
+                                    ),
+                                    CustomButton(
+                                        onPressed: () {
+                                          HomeCubit.get(context).addFavorite(
+                                              context, products[i].id!);
+                                        },
+                                        text: (products[i].inFavorites! == true)
+                                            ? "Unfavorite"
+                                            : "Favorite"),
+                                  ],
+                                ),
+                          (state is HomeLoading)
+                              ? Container()
+                              : CustomButton(
                                   onPressed: () {
-                                    Navigator.pushNamed(
-                                        context, "/productInfoScreen",
-                                        arguments: products[i].id);
+                                    HomeCubit.get(context)
+                                        .addToCart(context, products[i].id!);
                                   },
-                                  text: "More Info"),
-                              const SizedBox(
-                                width: 8,
-                              ),
-                              (state is HomeLoading)
-                                  ? const CircularProgressIndicator()
-                                  : CustomButton(
-                                      onPressed: () {
-                                        HomeCubit.get(context).addFavorite(
-                                            context, products[i].id!);
-                                      },
-                                      text: (products[i].inFavorites! == true)
-                                          ? "Unfavorite"
-                                          : "Favorite"),
-                            ],
-                          ),
-                          // (state is HomeLoading) ? const CircularProgressIndicator() : CustomButton(onPressed: () {HomeCubit.get(context).addFavorite(context, products[i].id!);}, text: (products[i].inCart! == true) ? "Remove from cart" : "Add to cart"),
+                                  text: (products[i].inCart! == true)
+                                      ? "Remove from cart"
+                                      : "Add to cart"),
                         ],
                       ),
                     )

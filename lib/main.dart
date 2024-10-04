@@ -1,6 +1,8 @@
 import 'package:ecommerce/core/utils/cache/sharedPrefs.dart';
 import 'package:ecommerce/screens/auth/views/signInScreen.dart';
 import 'package:ecommerce/screens/auth/views/signUpScreen.dart';
+import 'package:ecommerce/screens/home/data/cartScreen.dart';
+import 'package:ecommerce/screens/home/views/accountScreen.dart';
 import 'package:ecommerce/screens/home/views/homeScreen.dart';
 import 'package:ecommerce/screens/home/views/productInfoScreen.dart';
 import 'package:ecommerce/screens/home/views/productsScreen.dart';
@@ -33,7 +35,9 @@ class MyApp extends StatelessWidget {
           "/signUpScreen": (context) => const SignUpScreen(),
           "/homeScreen": (context) => const HomeScreen(),
           "/productsScreen": (context) => const ProductsScreen(),
-          "/productInfoScreen": (context) => const ProductInfoScreen()
+          "/productInfoScreen": (context) => const ProductInfoScreen(),
+          "/cartScreen": (context) => const CartScreen(),
+          "/accountScreen": (context) => const AccountScreen()
         });
   }
 }
